@@ -3,10 +3,10 @@ using namespace metal;
 
 struct VertexOut {
     float4 position [[position]];
-    float2 textureCoordinate [[user(texcoord)]]; // ✅ Ensure compatibility with standard vertex shader
+    float2 textureCoordinate [[user(textureCoordinate)]]; // ✅ Use correct format expected from oneInputVertex
 };
 
-// ✅ Corrected warp shader
+// ✅ Fixed myWarpShader
 fragment float4 myWarpShader(VertexOut in [[stage_in]],
                              texture2d<float> inputTexture [[texture(0)]],
                              constant float2 &warpCenter [[buffer(0)]],
@@ -15,7 +15,7 @@ fragment float4 myWarpShader(VertexOut in [[stage_in]],
     
     constexpr sampler textureSampler(coord::normalized, address::clamp_to_edge, filter::linear);
     
-    float2 uv = in.textureCoordinate;  // ✅ Get correct texture coordinates
+    float2 uv = in.textureCoordinate;  // ✅ Corrected name to match what `oneInputVertex` provides
     float2 centerUV = warpCenter;
 
     // ✅ Calculate distance from warp center
