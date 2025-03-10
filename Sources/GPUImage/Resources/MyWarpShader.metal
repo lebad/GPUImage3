@@ -1,7 +1,19 @@
 #include <metal_stdlib>
-#include "OperationShaderTypes.h"
 
 using namespace metal;
+
+struct SingleInputVertexIO
+{
+    float4 position [[position]];
+    float2 textureCoordinate [[user(texturecoord)]];
+};
+
+struct TwoInputVertexIO
+{
+    float4 position [[position]];
+    float2 textureCoordinate [[user(texturecoord)]];
+    float2 textureCoordinate2 [[user(texturecoord2)]];
+};
 
 typedef struct
 {
